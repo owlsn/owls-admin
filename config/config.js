@@ -82,6 +82,18 @@ export default {
           path: '/user/login',
           component: './user/login',
         },
+        {
+          name: '登录页',
+          icon: 'smile',
+          path: '/userlogin',
+          component: './UserLogin',
+        },
+        {
+          name: '注册页',
+          icon: 'smile',
+          path: '/userregister',
+          component: './UserRegister',
+        },
       ],
     },
     {
@@ -109,6 +121,18 @@ export default {
               icon: 'crown',
               component: './Admin',
               authority: ['admin'],
+            },
+            {
+              name: '失败页',
+              icon: 'smile',
+              path: '/resultfail',
+              component: './ResultFail',
+            },
+            {
+              name: '成功页',
+              icon: 'smile',
+              path: '/resultsuccess',
+              component: './ResultSuccess',
             },
             {
               component: './404',
