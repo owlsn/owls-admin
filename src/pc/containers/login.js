@@ -7,23 +7,24 @@ import axios from 'axios'
 const mapStateToProps = state => ({ ...state.auth })
 
 const mapDispatchToProps = dispatch => ({
-  loginApi : (values) => 
-    {
-      dispatch({ type: LOGIN })
-      axios.get('/test.json?' + JSON.stringify(values)).then(ret => {
-        if(ret.status === 200){
+  loginApi: values => {
+    dispatch({ type: LOGIN })
+    axios
+      .get('/test.json?' + JSON.stringify(values))
+      .then(ret => {
+        if (ret.status === 200) {
           setTimeout(() => {
-            dispatch({ type: LOGIN_SUCCESS, ret : ret})
-          }, 3000);
+            dispatch({ type: LOGIN_SUCCESS, ret: ret })
+          }, 3000)
           return ret
-        }
-        else{
+        } else {
           dispatch({ type: LOGIN_FAIL, err: ret })
         }
-      }).catch( err => {
-        dispatch({ type: LOGIN_FAIL , err : err})
       })
-    }
+      .catch(err => {
+        dispatch({ type: LOGIN_FAIL, err: err })
+      })
+  }
 })
 
 class NormalLoginForm extends Component {
@@ -33,8 +34,8 @@ class NormalLoginForm extends Component {
     const username = this.props.username
     const password = this.props.password
     setFieldsValue({
-      username : username,
-      password : password
+      username: username,
+      password: password
     })
   }
 
@@ -48,14 +49,17 @@ class NormalLoginForm extends Component {
     })
   }
 
-
-
   render() {
     const { getFieldDecorator } = this.props.form
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form" style={{
-        'maxWidth': "300px"
-      }}>
+      <Form
+        onSubmit={this.handleSubmit}
+        className="login-form"
+        style={{
+          maxWidth: '300px',
+          margin: '0 auto'
+        }}
+      >
         <Form.Item>
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' }]
@@ -82,9 +86,13 @@ class NormalLoginForm extends Component {
             valuePropName: 'checked',
             initialValue: true
           })(<Checkbox>Remember me</Checkbox>)}
-          <a className="login-form-forgot" style={{
-            float: "right"
-          }} href="/">
+          <a
+            className="login-form-forgot"
+            style={{
+              float: 'right'
+            }}
+            href="/"
+          >
             Forgot password
           </a>
           <Button
@@ -93,7 +101,7 @@ class NormalLoginForm extends Component {
             htmlType="submit"
             className="login-form-button"
             style={{
-              width: "100%"
+              width: '100%'
             }}
           >
             Log in
@@ -105,6 +113,6 @@ class NormalLoginForm extends Component {
   }
 }
 
-const Login = Form.create({ name: 'normal_login' })(NormalLoginForm);
+const Login = Form.create({ name: 'normal_login' })(NormalLoginForm)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
